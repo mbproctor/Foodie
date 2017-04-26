@@ -1,0 +1,99 @@
+<% include partials/header %>
+
+<div class="container">
+
+    <h1><%= title %></h1>
+
+    <ul>
+        <% foods.forEach(function (food) { %>
+            <li>
+                <%= food.name %> 
+                <a href="#" class="updateFood" data-id="<%= food._id %>">Update</a>
+                <a href="#" class="deleteFood" data-id="<%= food._id %>">Delete</a>
+            </l1>
+            <ul>
+                <li>Description: <%= food.description %></li>
+                <li>Category in the Food Pyramid: <%= food.category %></li>
+                <li>Serving Size: <%= food.serving_size %></li>
+                <li>Serving Size Units: <%= food.serving_size_units %></li>
+                <li>Calories per Serving Size: <%= food.calories %></li>
+                <li>Meal: <%=food.meal%></li>
+            </ul>
+        <% }) %>
+    </ul>
+
+    <h2>Add Food</h2>
+
+    <% if (errors != undefined) { %>
+        <ul>
+        <% errors.forEach(function(error) { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+        </ul>
+    <% } %>
+
+    <form method="POST" action="/foods/add">
+        <div class="form-group">
+            <label for="name">Food Name:</label>
+            <input type="text" name="name" id="name" placeholder="Cookies">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Food Description:</label>
+            <textarea id="description" name="description" placeholder="Enter a brief description"></textarea>
+        </div>
+        
+        <label>Please select a category in the food pyramid:</label>
+        
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Milk, Cheese, and Dairy">Milk, Cheese, and Dairy</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Meat, Fish, and Protein">Meat, Fish, and Protein</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Fats, Spreads, and Oils">Fats, Spreads, and Oils</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Fruit and Vegetables">Fruit and Vegetables</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Bread, Cereals, and Potatoes">Bread, Cereals, and Potatoes</label>
+        </div>
+
+        <div class="form-group">
+            <label for="serving_size">Serving Size</label>
+            <input type="text" name="serving_size" id="serving_size" placeholder="4">
+        </div>
+
+        <div class="form-group">
+            <label for="serving_size_units">Serving Size Units</label>
+            <input type="text" name="serving_size_units" id="serving_size_units" placeholder="Cups">
+        </div>
+
+        <div class="form-group">
+            <label for="calories">Calories per Serving Size</label>
+            <input type="text" name="calories" id="calories" placeholder="500">
+        </div> 
+        
+         <label>Please select the meal this food belongs in:</label>
+        
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Breakfast">Breakfast</label>
+        </div>
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Lunch">Lunch</label>
+        </div>
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Dinner">Dinner</label>
+        </div>
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Snack">Snack</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+<% include partials/footer %>

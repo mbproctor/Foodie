@@ -1,0 +1,101 @@
+<% include partials/header %>
+
+<div class="container">
+
+    <h2>Update Food</h2>
+    
+    <p><a href="/">Home</a><p>
+
+    <form>
+        <input type="hidden" name="food_id" id="food_id" value="<%= food._id %>">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="<%= food.name %>">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" value="<%= food.description %>">
+        </div>
+        
+        <label>Please select a category in the food pyramid:</label>
+        
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Milk, Cheese, and Dairy">Milk, Cheese, and Dairy</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Meat, Fish, and Protein">Meat, Fish, and Protein</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Fats, Spreads, and Oils">Fats, Spreads, and Oils</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Fruit and Vegetables">Fruit and Vegetables</label>
+        </div>
+        <div class="form-group">
+            <label><input name="category" type="checkbox" id="category" value="Bread, Cereals, and Potatoes">Bread, Cereals, and Potatoes</label>
+        </div>
+
+        <div class="form-group">
+            <label for="serving_size">Serving Size</label>
+            <input type="text" name="serving_size" id="serving_size" value="<%= food.serving_size %>">
+        </div>
+
+        <div class="form-group">
+            <label for="serving_size_units">Serving Size Units</label>
+            <input type="text" name="serving_size_units" id="serving_size_units" value="<%= food.serving_size_units %>">
+        </div>
+
+        <div class="form-group">
+            <label for="calories">Calories per Serving Size</label>
+            <input type="text" name="calories" id="calories" value="<%= food.calories %>">
+        </div>
+        
+        <label>Please select the meal this food belongs in:</label>
+        
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Breakfast">Breakfast</label>
+        </div>
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Lunch">Lunch</label>
+        </div>
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Dinner">Dinner</label>
+        </div>
+        <div class="form-group">
+            <label><input name="meal" type="checkbox" id="meal" value="Snack">Snack</label>
+        </div>
+
+        <a href="#" class="btn btn-success" id="update">Save</a>
+    </form>
+
+</div>
+
+<script>
+$(document).ready(function () {
+    $('#update').on('click', updateFood)
+})
+
+function updateFood () {
+    var food = {
+        "id": $('#food_id').val(),
+        "name": $('#name').val(),
+        "description": $('#description').val(),
+        "category":$('#category').val(),
+        "serving_size": $('#serving_size').val(),
+        "serving_size_units": $('#serving_size_units').val(),
+        "calories": $('#calories').val(),
+        "meal":$('#meal').val()
+    }
+    $.ajax({
+        type: 'PUT',
+        url: '/foods/update',
+        data: food
+    }).done(function (response) {
+        window.location.replace('/')
+    })
+    window.location.replace('/')
+}
+</script>
+
+<% include partials/footer %>
